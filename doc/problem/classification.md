@@ -49,6 +49,7 @@ The step after model fitting is to assess the important behavioral features in t
 
 
 Initial tasks may include:
+
 1. Clean up the existing strain_classification.py: create functions and objects.
 2. Adding new models: knn, random forests, neural networks, logistic regressions.
 3. Doing unsupervised learning: k-means.
