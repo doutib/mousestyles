@@ -25,8 +25,6 @@ Since each strain (each class) only has 9 to 12 mice, inputting too many feature
 
 ## Data Requirements Description
 
-We dispose of a labeled data set of 16 different strains of mice. Behavioral features are recorded for each mouse and each day. One example can be the time spent eating or drinking, and the amount ingested.  
-
 The researchers record the daily activities of each mouse, for example the time it spends eating, drinking, sleeping, and wondering around its habitats. Therefore, every behavioral features should be averaged to the same time period (one mouse day) for each mouse. For example, the food consumed variable at each timestamp will be aggregated to the average food consumption.
 
 Notice that the final dataset should be a clean and well formatted dataframe (in numpy array or pandas dataframe) aggregating the features of mice so that it can be directly used to train classification models.
@@ -34,13 +32,12 @@ Notice that the final dataset should be a clean and well formatted dataframe (in
 Besides, the detailed explanation for each variable and strain type might be needed for further interpretations of models.
 
 ## Methodology/ Approach Description
+
 1.Supervisied Classification:
 Supervised classification algorithms (logistic regression, random forest, KNN) will be used to detect the relationship between strain of mice and behavioral features. If we gain good model performance, we can conclude different mouse behaviors actually indicate different genetic differences. K-fold cross-validation might be used to tune model parameters, and a proportion of data would be used as test data to evaluate the model perfomance. Notice that we may manually manipulate so that the both the training data and the test data cover all strains of mice.
 
-
-2.Unsupervisied clustering
+2.Unsupervisied Clustering:
 In addition, we can use unsupervised machine learning models (e.g. K-means) to cluster the daily mouse activities into clusters that correspond to the genes. This means we will not use the given strain label, instead we will create new labels for mice purely based on its behaviors by clustering. This can highlight an even stronger relationship between genes and mouse behaviors. 
-
 
 The step after model fitting is to assess the important behavioral features in the classification and clustering models. A smaller set of feature space containing only top features might be used to gain better interpretations of the model.
 
@@ -50,8 +47,8 @@ The step after model fitting is to assess the important behavioral features in t
 
 - From our limited understanding, the results of this research might have a meaningful implication on the way we treat psychological disorders. If it turns out that nature does influence these disorders, we can probably conclude that psychological disorders is not much different than physical disabilities. Otherwise, if nature has little influence over these disorders, we can try to find way to prevent these disorders from happening. 
 
-## Initial tasks 
 
+Initial tasks may include:
 1. Clean up the existing strain_classification.py: create functions and objects.
 2. Adding new models: knn, random forests, neural networks, logistic regressions.
 3. Doing unsupervised learning: k-means.
