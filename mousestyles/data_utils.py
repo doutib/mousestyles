@@ -5,10 +5,16 @@ from __future__ import print_function, absolute_import, division
 import numpy as np
 
 
-def day_to_mouse_average(features, labels, num_strains=16, stdev=False, stderr=False):
-    """ first three columns of labels are strain num, mouse number, day number
-        features is an M x N matrix of mouse day x features
-        Returns: new data matrix with a mean and stdev/stderr for each mouse over mouse days """
+def day_to_mouse_average(features, labels, num_strains=16,
+                         stdev=False, stderr=False):
+    """
+    first three columns of labels are strain num, mouse number, day number
+    features is an M x N matrix of mouse day x features
+
+    Returns:
+        new data matrix with a mean and stdev/stderr for each mouse over
+        mouse days
+    """
 
     data = np.hstack([labels, features])
     tot_data_avgs = np.zeros((1, data.shape[1] - 1))
@@ -21,7 +27,7 @@ def day_to_mouse_average(features, labels, num_strains=16, stdev=False, stderr=F
         tmp_data = data[data[:, 0] == strain, :]
 
         for i in range(tmp_data.shape[0]):
-            if mice.has_key(tmp_data[i, 1]):
+            if tmp_data[i, 1] in mice:
                 mice[tmp_data[i, 1]] += 1
             else:
                 cnt += 1
@@ -34,8 +40,9 @@ def day_to_mouse_average(features, labels, num_strains=16, stdev=False, stderr=F
             mouse_arr = tmp_data[tmp_data[:, 1] == num, 0:]
             mouse_avg = mouse_arr[:, 3:].mean(axis=0)
             mouse_std = mouse_arr[:, 3:].std(axis=0)
+            # standard error for plot
             mouse_stderr = mouse_arr[:, 3:].std(
-                axis=0) / np.sqrt(mouse_arr.shape[0] - 1)   # standard error for plotting
+                axis=0) / np.sqrt(mouse_arr.shape[0] - 1)
 
             data_avgs[c, 0:2] = mouse_arr[0, 0:2]
             data_avgs[c, 2:] = mouse_avg
@@ -59,10 +66,16 @@ def day_to_mouse_average(features, labels, num_strains=16, stdev=False, stderr=F
     return tot_data_avgs[1:]
 
 
-def mouse_to_strain_average(features, labels, num_strains=16, stdev=False, stderr=False):
-    """ first two columns of M x N data matrix are strain num (1 - num_strains), mouse number
-        other columns are features
-        Returns: new data matrix with a mean and stdev/stderr for each strain over mice """
+def mouse_to_strain_average(
+        features, labels, num_strains=16, stdev=False, stderr=False):
+    """
+    first two columns of M x N data matrix are strain num (1 - num_strains),
+    mouse number
+    other columns are features
+
+    Returns: new data matrix with a mean and stdev/stderr for each strain
+    over mice
+    """
     data = np.hstack([labels, features])
     tot_data_avgs = np.zeros((num_strains, data.shape[1] - 2))
     tot_data_std = np.zeros((num_strains, data.shape[1] - 2))
@@ -73,7 +86,7 @@ def mouse_to_strain_average(features, labels, num_strains=16, stdev=False, stder
         tot_data_avgs[strain] = tmp_data.mean(axis=0)
         tot_data_std[strain] = tmp_data.std(axis=0)
         tot_data_stderr[strain] = tmp_data.std(
-            axis=0) / np.sqrt(tmp_data.shape[0] - 1)     # standard error for plotting
+            axis=0) / np.sqrt(tmp_data.shape[0] - 1)  # standard error for plot
 
     if stdev:
         return tot_data_avgs, tot_data_std
@@ -90,9 +103,10 @@ def split_data_in_half_randomly(features, labels):
 
         and an array labels for this data of the form:
             labels = M x 2
-        where labels[:, 0] are strain numbers and the labels[:, 1] are mice numbers
+        where labels[:, 0] are strain numbers and the labels[:, 1] are
+        mice numbers
 
-        returns 
+        returns
             bootstrap_data_1 = a random half of the mouse days
             bootstrap_labels_1
             bootstrap_data_2 = the other half
@@ -121,18 +135,23 @@ def split_data_in_half_randomly(features, labels):
             all_perm_labels[c:c + len(tmp_l)] = tmp_l[perm]
             c += len(tmp)
 
-    return all_perm_data[::2], all_perm_labels[::2], all_perm_data[1::2], all_perm_labels[1::2]
+    return all_perm_data[::2], all_perm_labels[
+        ::2], all_perm_data[1::2], all_perm_labels[1::2]
 
 
 def pull_locom_tseries_subset(M, start_time=0, stop_time=300):
     """
-        given an (m x n) numpy array M where the 0th row is array of times [ASSUMED SORTED]
-        returns a new array (copy) that is a subset of M corresp to start_time, stop_time
+    given an (m x n) numpy array M where the 0th row is array of times
+    [ASSUMED SORTED]
 
-        returns [] if times are not in array
+    returns a new array (copy) that is a subset of M corresp to
+    start_time, stop_time
 
-        (the difficulty is that if mouse does not move nothing gets registered
-         so we should artificially create start_time, stop_time movement events at boundries)
+    returns [] if times are not in array
+
+    (the difficulty is that if mouse does not move nothing gets registered
+     so we should artificially create start_time, stop_time movement events
+     at boundries)
     """
     T = M[0]
     idx_start = T.searchsorted(start_time)
@@ -159,10 +178,14 @@ def pull_locom_tseries_subset(M, start_time=0, stop_time=300):
     return new_M
 
 
-def total_time_rectangle_bins(M, xlims=(0, 1), ylims=(0, 1), xbins=5, ybins=10):
+def total_time_rectangle_bins(
+        M, xlims=(0, 1), ylims=(0, 1), xbins=5, ybins=10):
     """
-    given an (3 x n) numpy array M where the 0th row is array of times [ASSUMED SORTED]
-    returns a new (xbins x ybins) array (copy) that contains PDF of location over time
+    given an (3 x n) numpy array M where the 0th row is array of times
+    [ASSUMED SORTED]
+
+    returns a new (xbins x ybins) array (copy) that contains PDF of location
+    over time
     """
     xmin, xmax = xlims
     ymin, ymax = ylims
@@ -184,10 +207,14 @@ def total_time_rectangle_bins(M, xlims=(0, 1), ylims=(0, 1), xbins=5, ybins=10):
     return Cnts
 
 
-def idx_restrict_to_rectangles(TXY, rects=[(0, 0)], xlims=(0, 1), ylims=(0, 1), xbins=2, ybins=4, eps=.01):
+def idx_restrict_to_rectangles(TXY, rects=[(0, 0)], xlims=(
+        0, 1), ylims=(0, 1), xbins=2, ybins=4, eps=.01):
     """
-    given (3 x T) TXY with 0th row array of times [ASSUMED SORTED] and rows 1,2 are x,y coords
-    returns new interval array which is E minus those things occuring outside of given rectangle
+    given (3 x T) TXY with 0th row array of times [ASSUMED SORTED] and rows
+    1,2 are x,y coords
+
+    returns new interval array which is E minus those things occuring
+    outside of given rectangle
     """
     num_movements = TXY.shape[1]
     idx_F_bout = np.zeros(num_movements, dtype=bool)  # when at rectangles
@@ -198,24 +225,32 @@ def idx_restrict_to_rectangles(TXY, rects=[(0, 0)], xlims=(0, 1), ylims=(0, 1), 
             rectangle=rect, xbins=xbins, ybins=ybins)
 
         for t in range(num_movements):
-            if ((TXY[1, t] > tl[0]) and (TXY[1, t] < tr[0]) and (TXY[2, t] < tl[1]) and (TXY[2, t] > bl[1])):
+            if ((TXY[1, t] > tl[0]) and (TXY[1, t] < tr[0]) and (
+                    TXY[2, t] < tl[1]) and (TXY[2, t] > bl[1])):
                 idx_F_bout[t] = True
-#		print "indexed %d move events " % (sum(idx_F_bout) - tmp_sum)
+                # print "indexed %d move events " % (sum(idx_F_bout) - tmp_sum)
         tmp_sum += sum(idx_F_bout)
 
-#    print "Total move events: %d" % num_movements
-# print "indexing %d/%d (%1.1f percent) movements at rectangles" %
-# (sum(idx_F_bout), num_movements, 100. * sum(idx_F_bout) / num_movements)
+    # print "Total move events: %d" % num_movements
+    # print "indexing %d/%d (%1.1f percent) movements at rectangles" %
+    # (sum(idx_F_bout), num_movements, 100. * sum(idx_F_bout) / num_movements)
 
     return idx_F_bout
 
 
-def map_xbins_ybins_to_cage(rectangle=(0, 0), xbins=2, ybins=4, YLower=1.0, YUpper=43.0, XUpper=3.75, XLower=-16.25):
-    """ converts a rectangle in xbins x ybins to corresponding rectangle in Cage coordinates
-        format is [[p1, p2], [p3, p4]] where pi = (cage_height_location, cage_length_location)
-        # ??? -chris
-        ### THIS GIVES WRONG CAGE LOCATIONS for top bottom left right
-        # # # xbins ybins do NOT reflect cage geometry perfectly
+def map_xbins_ybins_to_cage(rectangle=(0, 0), xbins=2, ybins=4,
+                            YLower=1.0, YUpper=43.0, XUpper=3.75,
+                            XLower=-16.25):
+    """
+    converts a rectangle in xbins x ybins to corresponding rectangle in
+    Cage coordinates
+
+    format is [[p1, p2], [p3, p4]] where
+    pi = (cage_height_location, cage_length_location)
+
+    # ??? -chris
+    ### THIS GIVES WRONG CAGE LOCATIONS for top bottom left right
+    # # # xbins ybins do NOT reflect cage geometry perfectly
     """
     L = XUpper - XLower
     H = YUpper - YLower
@@ -228,4 +263,5 @@ def map_xbins_ybins_to_cage(rectangle=(0, 0), xbins=2, ybins=4, YLower=1.0, YUpp
     coord_x = XLower + delta_x * l
 
     return ((coord_x, coord_y), (coord_x + delta_x, coord_y),
-            (coord_x, coord_y - delta_y), (coord_x + delta_x, coord_y - delta_y))
+            (coord_x, coord_y - delta_y),
+            (coord_x + delta_x, coord_y - delta_y))

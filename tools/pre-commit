@@ -4,5 +4,4 @@
 ## which will hopefully guarantee a fairly smooth Travis build.
 ## If necessary, you can force a commit using the --no-verify flag.
 
-make test
-make style
+make all

@@ -4,12 +4,17 @@ language: python
 env:
   global:
     - DEPENDS="requirements.txt"
-    - COVERAGE=1
 
 python:
-  - 2.7
   - 3.4
   - 3.5
+
+matrix:
+  include:
+    - python: 2.7
+      env:
+        - COVERAGE=1
+
 
 before_install:
   - source tools/travis_tools.sh
@@ -20,11 +25,14 @@ before_install:
   - wheelhouse_pip_r_install ${DEPENDS}
 
 install:
-  - pip install --upgrade .
+  - pip install .
 
 script:
-  - make test
-  - make style
+  - mkdir tmp_for_tests
+  - cp Makefile tmp_for_tests/.
+  - cd tmp_for_tests
+  - make test-fast
+  - make style-fast
 
 after_success:
   - if [ "${COVERAGE}" == "1" ]; then coveralls; fi

@@ -28,7 +28,7 @@
  
 <div id='indentation'/> 
 ## Indentation
-- Use 1 tab per indentation level
+- Use 4 spaces per indentation level
 - Continuation lines should align wrapped elements vertically using Python's implicit line joining inside parentheses, brackets and braces 
 
     ```python 
@@ -162,16 +162,16 @@
 
   ```python
   # How dows a mouse feel after it takes a shower?
-  # Squeaky clean
+  # Squeaky clean.
   # 
   # How do you save a drowning mouse?
-  # Use mouse to mouse resuscitation
+  # Use mouse to mouse resuscitation.
   not_your_cheese(marscapone, maasdam, camembert, roquefort)
   ```
 - Use inline comments sparingly
 
   ```python
-  not_your_cheese(gorgonzola, munster, limburger, doppelrhamstufel) # not your cheese, my cheese
+  not_your_cheese(gorgonzola, munster, limburger, doppelrhamstufel) # Not your cheese, my cheese.
   ```
 
 <div id='blank-lines'/>
@@ -208,7 +208,8 @@
 
 <div id='string-quotes'/>
 ## String Quotes
-- Use double-quotes for strings
+- Generally, use double-quotes for strings, but if a string contains a double-quote, then use single quotes 
+- Keep string quotes consistent for readability 
 
 <div id='imports'/>
 ## Imports
@@ -228,11 +229,12 @@
 - Use backslashes when implicit continuation fails 
 
   ```python
-  with open('/why/did/the/chicken/cross/the/road') as chicken, \
-       open('/to/get/to/the/other/side', 'w') as waffles:
+  with open("/why/did/the/chicken/cross/the/road") as chicken, \
+       open("/to/get/to/the/other/side", "w") as waffles:
        waffles.write(chicken.read())
   ```
   
 
 For more information, please refer to:
-[Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) and [Docstring Conventions](https://www.python.org/dev/peps/pep-0257/ )
+[Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) and
+[Docstring Guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt)

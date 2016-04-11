@@ -6,4 +6,4 @@ pytest-cov==2.2.1
 pytest-flakes==1.0.1
 pytest-pep8==1.0.6
 scipy==0.16.1
-pandas==0.18.0
+pandas==0.17.0
