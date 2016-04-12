@@ -48,7 +48,7 @@ The step after model fitting is to assess the important behavioral features in t
 - From our limited understanding, the results of this research might have a meaningful implication on the way we treat psychological disorders. If it turns out that nature does influence these disorders, we can probably conclude that psychological disorders is not much different than physical disabilities. Otherwise, if nature has little influence over these disorders, we can try to find way to prevent these disorders from happening. 
 
 
-Initial tasks may include:
+Initial tasks:
 
 1. Clean up the existing strain_classification.py: create functions and objects.
 2. Adding new models: knn, random forests, neural networks, logistic regressions.
