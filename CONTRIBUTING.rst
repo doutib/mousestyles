@@ -34,6 +34,10 @@ Here's the long and short of it:
 
       git checkout -b contributing-issue#14
 
+     See `tools/bash-and-git.sh`,
+     which contains useful configurations for visualizing and
+     keeping track of branches more easily.
+
    * Commit locally as you progress (``git add`` and ``git
      commit``). It is highly recommended that you use the provided
      pre-commit hook (described in the `tools README <https://https://github.com/berkeley-stat222/mousestyles/blob/master/tools/README.md>`_), which automatically runs tests and style checks before every commit. This way, you can see if Travis (described below) will fail before you push.
@@ -51,21 +55,21 @@ Here's the long and short of it:
      <https://github.com/berkeley-stat222/mousestyles/issues/issue#*number*>`_ to explain your changes or
      to ask for review.
 
-For a more detailed discussion, read these :doc:`detailed documents
-<gitwash/index>` on how to use Git with ``mousestyles``
-(`<http://berkeley-stat222.github.io/mousestyles/dev/gitwash/index.html>`_).
 
 4. Review process:
 
-    * Reviewers (the other developers and interested community members) will
-      write inline and/or general comments on your Pull Request (PR) to help
-      you improve its implementation, documentation and style.  Every single
-      developer working on the project has their code reviewed, and we've come
-      to see it as friendly conversation from which we all learn and the
-      overall code quality benefits.  Therefore, please don't let the review
-      discourage you from contributing: its only aim is to improve the quality
-      of project, not to criticize (we are, after all, very grateful for the
-      time you're donating!).
+    * Reviewers (the other developers and interested community
+      members) will write inline and/or general comments on your Pull
+      Request (PR) to help you improve its implementation,
+      documentation and style.  Every single developer working on the
+      project has their code reviewed, and we've come to see it as
+      friendly conversation from which we all learn and the overall
+      code quality benefits.  Therefore, please don't let the review
+      discourage you from contributing: its only aim is to improve the
+      quality of the project, not to criticize (we are, after all,
+      very grateful for the time you're donating!). See `here
+      <https://github.com/thoughtbot/guides/tree/master/code-review>`_
+      for some nice code review guidelines.
 
     * To update your pull request, make your changes on your local repository
       and commit. As soon as those changes are pushed up (to the same branch as

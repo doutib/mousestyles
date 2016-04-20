@@ -10,3 +10,5 @@ development, but are not part of the mousestyles package itself.
   style`. To activate, copy into the `.git/hooks` directory. This will
   then disallow commits which do not pass the tests and style
   check. If necessary, this can be bypassed using `git commit --no-verify`.
+- `bash-and-git.sh`: contains various useful git/bash
+  configurations. See comments in file for more details.

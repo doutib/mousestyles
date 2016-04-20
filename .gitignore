@@ -1,5 +1,6 @@
 ### Our own ignore
 .DS_Store
+_build/
 
 ### Python gitignore
 ### - https://github.com/github/gitignore/blob/master/Python.gitignore

@@ -62,3 +62,122 @@ def load_all_features():
     other_features = [x.iloc[:, -1] for x in data_frames]
     other_features.insert(0, all_features_df)
     return pd.concat(other_features, axis=1)
+
+
+def load_intervals(feature):
+    """
+    Return a pandas.DataFrame object of project interval data
+    for the specified feature.
+
+    There are 5 columns in the dataframe:
+    strain: the strain number of the mouse
+    mouse: the mouse number in its strain
+    day: the day number
+    start: the start time
+    stop: the stop time
+
+    Parameters
+    ----------
+    feature: {"AS", "F", "IS", "M_AS", "M_IS", "W"}
+
+    Returns
+    -------
+    intervals : pandas.DataFrame
+        All data of the specified feature as a dataframe
+
+    Examples
+    --------
+    >>> AS = load_intervals('AS')
+    >>> IS = load_intervals('IS')
+    """
+    # check input is one of the provided choices
+    if feature not in {"AS", "F", "IS", "M_AS", "M_IS", "W"}:
+        raise ValueError(
+            'Input value must be one of {"AS", "F", "IS", "M_AS", "M_IS", "W"}'
+            )
+    # get all file names
+    file_names = _os.listdir(_os.path.join(data_dir, "intervals", feature))
+    # check if directory is empty
+    if len(file_names) == 0:
+        raise ValueError('Directory is empty; no file found.')
+    # initialized data frame
+    # use for loop to load every file and concat to overall data frame
+    dt = pd.DataFrame()
+    for item in file_names:
+        strain = int(item.split("strain")[1].split("_mouse")[0])
+        mouse = int(item.split("mouse")[1].split("_day")[0])
+        day = int(item.split("day")[1].split(".npy")[0])
+        path = _os.path.join(data_dir, "intervals", feature, item)
+        sub = np.load(path)
+        dt_sub = pd.DataFrame()
+        dt_sub["strain"] = [strain] * sub.shape[0]
+        dt_sub["mouse"] = [mouse] * sub.shape[0]
+        dt_sub["day"] = [day] * sub.shape[0]
+        dt_sub["start"] = sub[:, 0]
+        dt_sub["stop"] = sub[:, 1]
+        dt = pd.concat([dt, dt_sub])
+    # sort based on strain, mouse and day
+    dt = dt.sort(["strain", "mouse", "day"])
+    dt.index = range(dt.shape[0])
+    return dt
+
+
+def load_movement(strain, mouse, day):
+    """
+    Return a pandas.DataFrame object of project movement data
+    for the specified combination of strain, mouse and day.
+
+    There are 4 columns in the dataframe:
+    t: Time coordinates (in seconds)
+    x: X coordinates indicating the left-right position of the cage
+    y: Y coordinates indicating the front-back position of the cage
+    isHB: Boolean indicating whether the point is in the home base or not
+
+    Parameters
+    ----------
+    strain: int
+        nonnegative integer indicating the strain number
+    mouse: int
+        nonnegative integer indicating the mouse number
+    day: int
+        nonnegative integer indicating the day number
+
+    Returns
+    -------
+    movement : pandas.DataFrame
+        CT, CX, CY coordinates and home base status
+        of the combination of strain, mouse and day
+
+    Examples
+    --------
+    >>> movement = load_movement(0, 0, 0)
+    >>> movement = load_movement(1, 2, 1)
+    """
+    # check if all inputs are nonnegative integers
+    conditions_value = [strain < 0, mouse < 0, day < 0]
+    conditions_type = [type(strain) != int, type(mouse) != int,
+                       type(day) != int]
+    if any(conditions_value):
+        raise ValueError("Input values need to be nonnegative")
+    if any(conditions_type):
+        raise TypeError("Input values need to be integer")
+    # load all four files of HB, CT, CX and CY data
+    HB_path = "txy_coords/C_idx_HB/C_idx_HB_strain{}_mouse{}_day{}.npy".\
+        format(strain, mouse, day)
+    CT_path = "txy_coords/CT/CT_strain{}_mouse{}_day{}.npy".\
+        format(strain, mouse, day)
+    CX_path = "txy_coords/CX/CX_strain{}_mouse{}_day{}.npy".\
+        format(strain, mouse, day)
+    CY_path = "txy_coords/CY/CY_strain{}_mouse{}_day{}.npy".\
+        format(strain, mouse, day)
+    HB = np.load(_os.path.join(data_dir, HB_path))
+    CT = np.load(_os.path.join(data_dir, CT_path))
+    CX = np.load(_os.path.join(data_dir, CX_path))
+    CY = np.load(_os.path.join(data_dir, CY_path))
+    # make data frame
+    dt = pd.DataFrame()
+    dt["t"] = CT
+    dt["x"] = CX
+    dt["y"] = CY
+    dt["isHB"] = HB
+    return dt
