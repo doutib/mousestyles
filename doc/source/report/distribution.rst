@@ -48,6 +48,15 @@ Exploratory Analysis
 .. figure:: figure/project6.png
    :alt: alt tag
 
+.. figure:: figure/mouse-day.png
+   :alt: alt tag
+
+.. figure:: figure/mouse.png
+   :alt: alt tag
+
+.. figure:: figure/strain.png
+   :alt: alt tag
+
    Distribution
 
 - Preferred choice of distribution: the power law is a
