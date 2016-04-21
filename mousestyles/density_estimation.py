@@ -32,8 +32,9 @@ def extract_distances(strain, mouse, day, step=1e2):
     movement = load_movement(strain, mouse, day)
     # Compute distance between samples
     dist = np.empty((movement.shape[0], 2))
-    dist[0, 0] = sqrt(movement.iloc[0, 1]*movement.iloc[0, 1] 
-        + movement.iloc[0, 2]*movement.iloc[0, 2])
+    x0 = movement.iloc[0, 1]*movement.iloc[0, 1]
+    y0 = movement.iloc[0, 2]*movement.iloc[0, 2]
+    dist[0, 0] = sqrt(x0*x0 + y0*y0)
     for i in range(1, len(dist[:, 0])):
         x1 = movement.iloc[i-1, 1]
         y1 = movement.iloc[i-1, 2]
@@ -115,3 +116,4 @@ def extract_distances_bystrain(strain, step=1e2, verbose=False):
             print('mouse %s done.' % mouse)
     res = pd.DataFrame(res)
     return(np.array(res.sum(axis=0)))
+    
