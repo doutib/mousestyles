@@ -116,4 +116,3 @@ def extract_distances_bystrain(strain, step=1e2, verbose=False):
             print('mouse %s done.' % mouse)
     res = pd.DataFrame(res)
     return(np.array(res.sum(axis=0)))
-    
