@@ -1,5 +1,9 @@
-
 # coding: utf-8
+
+from mousestyles.data import load_movement
+import numpy as np
+import pandas as pd
+from math import sqrt
 
 # # Extract distances
 # Here are a bunch of functions for extracting distances with a given delta t 
