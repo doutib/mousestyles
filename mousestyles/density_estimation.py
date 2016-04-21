@@ -32,8 +32,8 @@ def extract_distances(strain, mouse, day, step=1e2):
     movement = load_movement(strain, mouse, day)
     # Compute distance between samples
     dist = np.empty((movement.shape[0], 2))
-    dist[0, 0] = sqrt(movement.iloc[0, 1]*movement.iloc[0, 1]+
-                     movement.iloc[0, 2]*movement.iloc[0, 2])
+    dist[0, 0] = sqrt(movement.iloc[0, 1]*movement.iloc[0, 1] 
+        + movement.iloc[0, 2]*movement.iloc[0, 2])
     for i in range(1, len(dist[:, 0])):
         x1 = movement.iloc[i-1, 1]
         y1 = movement.iloc[i-1, 2]
@@ -88,11 +88,6 @@ def extract_distances_bymouse(strain, mouse, step=1e2, verbose=False):
     return(np.array(res.sum(axis=0)))
 
 
-
-# ## Strain
-# Extract the distance distribution for a particular strain for all mice for all days.
-
-
 def extract_distances_bystrain(strain, step=1e2, verbose=False):
     """
     Aggregates extract_distances_bymouse for all mice in a strain.
@@ -120,4 +115,3 @@ def extract_distances_bystrain(strain, step=1e2, verbose=False):
             print('mouse %s done.' % mouse)
     res = pd.DataFrame(res)
     return(np.array(res.sum(axis=0)))
-
