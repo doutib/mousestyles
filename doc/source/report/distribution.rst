@@ -50,15 +50,12 @@ Exploratory Analysis
 
 .. figure:: figure/mouse-day.png
    :alt: alt tag
-   :align: "center"
 
 .. figure:: figure/mouse.png
    :alt: alt tag
-   :align: "center"
 
 .. figure:: figure/strain.png
    :alt: alt tag
-   :align: "center"
 
    Distribution
 
