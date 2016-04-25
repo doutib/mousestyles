@@ -162,7 +162,7 @@ def load_movement(strain, mouse, day):
     if any(conditions_type):
         raise TypeError("Input values need to be integer")
     # load all four files of HB, CT, CX and CY data
-    HB_path = "txy_coords/C_idx_HB/C_idx_HB_strain{}_mouse{}_day{}.npy".\
+    NHB_path = "txy_coords/C_idx_HB/C_idx_HB_strain{}_mouse{}_day{}.npy".\
         format(strain, mouse, day)
     CT_path = "txy_coords/CT/CT_strain{}_mouse{}_day{}.npy".\
         format(strain, mouse, day)
@@ -170,7 +170,7 @@ def load_movement(strain, mouse, day):
         format(strain, mouse, day)
     CY_path = "txy_coords/CY/CY_strain{}_mouse{}_day{}.npy".\
         format(strain, mouse, day)
-    HB = np.load(_os.path.join(data_dir, HB_path))
+    HB = ~ np.load(_os.path.join(data_dir, NHB_path))
     CT = np.load(_os.path.join(data_dir, CT_path))
     CX = np.load(_os.path.join(data_dir, CX_path))
     CY = np.load(_os.path.join(data_dir, CY_path))

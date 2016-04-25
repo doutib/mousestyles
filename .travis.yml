@@ -28,6 +28,9 @@ install:
   - pip install .
 
 script:
+  - cd doc/source
+  - make html
+  - cd ../..
   - mkdir tmp_for_tests
   - cp Makefile tmp_for_tests/.
   - cd tmp_for_tests

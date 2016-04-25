@@ -2,7 +2,7 @@ from __future__ import print_function, absolute_import, division
 
 import numpy as np
 
-from mousestyles.data_utils import (pull_locom_tseries_subset,
+from mousestyles.data.utils import (pull_locom_tseries_subset,
                                     total_time_rectangle_bins)
 
 

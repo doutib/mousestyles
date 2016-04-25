@@ -14,22 +14,24 @@ DOWNLOAD_URL = 'https://github.com/berkeley-stat222/mousestyles'
 VERSION = '0.1dev'
 
 INSTALL_REQUIRES = [
-                    'numpy==1.10.1',
-                    'pandas==0.17.0',
-                    'pytest==2.9.1',
-                    'scipy==0.16.1',
-                    'Sphinx==1.4.1',
-                    'sphinxcontrib-bibtex==0.3.3',
-                    'numpydoc==0.6.0',
-                    'ghp-import==0.4.1',
+                    'numpy>=1.10.1',
+                    'pandas>=0.17.0',
+                    'pytest>=2.9.1',
+                    'scipy>=0.16.1',
+                    'scikit_learn>=0.17',
+                    'statsmodels>=0.6.1',
+                    'Sphinx>=1.4.1',
+                    'sphinxcontrib-bibtex>=0.3.3',
+                    'numpydoc>=0.6.0',
+                    'ghp-import>=0.4.1',
                     ]
 
 TESTS_REQUIRE = [
-                'coverage==4.0.3',
-                'coveralls==1.1',
-                'pytest-cov==2.2.1',
-                'pytest-flakes==1.0.1',
-                'pytest-pep8==1.0.6',
+                'coverage>=4.0.3',
+                'coveralls>=1.1',
+                'pytest-cov>=2.2.1',
+                'pytest-flakes>=1.0.1',
+                'pytest-pep8>=1.0.6',
                 ]
 
 
