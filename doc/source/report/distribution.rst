@@ -50,6 +50,10 @@ Exploratory Analysis
 
    Distribution
 
+.. plot:: plots/density_estimation_plots.py
+   
+   Distribution of distances for delta_t = 2 seconds
+
 - Preferred choice of distribution: the power law is a
   monotone decreasing, however our plot indicates a peak, in which gamma
   distribution may fit better.
