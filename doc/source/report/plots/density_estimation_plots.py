@@ -119,25 +119,6 @@ def extract_distances_bystrain(strain, step=1e2, verbose=False):
     return(np.array(res.sum(axis=0)))
 
 
-e = extract_distances(1, 1, 1, step=1e2)
-plt.style.use('ggplot')
-plt.figure()
-plt.hist(e[e > 0.1], 30, normed=True)
-plt.title('Distribution of positive distances for a mouse during one day\n')
-plt.xlabel("Distance (cm)")
-plt.ylabel("Density")
-plt.show()
-
-
-e_bymouse = extract_distances_bymouse(1, 1, step=1e2, verbose=False)
-plt.figure()
-plt.hist(e_bymouse[e_bymouse > 0.1], 30, normed=True)
-plt.title('Distribution of positive distances for a mouse\n')
-plt.xlabel("Distance (cm)")
-plt.ylabel("Density")
-plt.show()
-
-
 e_bystrain = extract_distances_bystrain(0, verbose=False)
 plt.figure()
 plt.hist(e_bystrain[e_bystrain > 0.1], 30, normed=True)
